@@ -2,6 +2,7 @@ import os
 import sys
 import subprocess
 from parser import parse_command
+from executor import execute_commande
 
 
 
@@ -11,10 +12,8 @@ while True :
         cmd, args = parse_command(line)
         if cmd is None :
             continue
-        #si la commande est quit on quitte le shell
-        if cmd == "quit" :
-            print("à la prochaine !")
-            break
+        else :
+            execute_commande(cmd, args)
 
 
 
