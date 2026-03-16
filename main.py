@@ -2,11 +2,14 @@ import os
 import sys
 import readline
 import subprocess
+from welcome import afficher_bienvenue
 from parser import parse_command
 from executor import execute_commande
 
 
 
+
+afficher_bienvenue()
 
 while True :
     try :
