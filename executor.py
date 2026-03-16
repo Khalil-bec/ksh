@@ -6,7 +6,16 @@ import inspect
 def execute_commande(commandes) :
 
     if len(commandes)>1 :
-        pass
+        precedente = None
+        for i,cmd in enumerate(commandes) :
+            if i == 0 :
+                p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+            elif i == len(commandes)-1 :
+                p = subprocess.Popen(cmd, stdin=precedente.stdout)
+            else :
+                p = subprocess.Popen(cmd, stdin=precedente.stdout, stdout=subprocess.PIPE)
+            precedente = p 
+        p.wait()  
     else :
         commandes = commandes[0]
         cmd=commandes[0]
