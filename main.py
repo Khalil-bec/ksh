@@ -9,11 +9,11 @@ from executor import execute_commande
 while True :
     try :
         line = input("Kshell> ")
-        cmd, args = parse_command(line)
-        if cmd is None :
+        commandes = parse_command(line)
+        if commandes is None :
             continue
         else :
-            execute_commande(cmd, args)
+            execute_commande(commandes)
 
 
 
