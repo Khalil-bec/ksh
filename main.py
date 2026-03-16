@@ -1,8 +1,10 @@
 import os
 import sys
+import readline
 import subprocess
 from parser import parse_command
 from executor import execute_commande
+
 
 
 
