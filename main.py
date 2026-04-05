@@ -13,6 +13,7 @@ from prompt import get_prompt
 
 
 afficher_bienvenue()
+os.chdir(os.path.expanduser("~"))
 configurer_autocomplete()
 while True :
     try :
