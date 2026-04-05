@@ -22,6 +22,8 @@ AIDE_TEXTE = {
     "cd"     : "cd [répertoire]    — changer de répertoire. Sans argument, retourne au ~",
     "pwd"    : "pwd                — afficher le répertoire courant",
     "exit"   : "exit               — quitter le shell",
+    "alias"  : "alias [nom=valeur]— créer/lister les alias persistants",
+    "unalias": "unalias <nom>     — supprimer un alias",
     "aide"   : "aide [commande]    — afficher l'aide. Sans argument, liste tout",
 }
 
@@ -83,5 +85,7 @@ BUILTINS={
     "cd" : cd,
     "pwd" : pwd,
     "exit" : exit,
-    "aide" : aide
+    "aide" : aide,
+    "alias" : alias,
+    "unalias" : unalias
 }
