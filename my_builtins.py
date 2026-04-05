@@ -38,6 +38,47 @@ def aide(args):
         else:
             print(f"aide: aucune aide disponible pour '{cmd}'")
 
+
+
+from aliases import ALIASES, sauvegarder_aliases
+
+def alias(args):
+    if len(args) == 0:
+        # Lister tous les alias
+        if not ALIASES:
+            print("Aucun alias défini.")
+        for nom, valeur in ALIASES.items():
+            print(f"alias {nom}='{valeur}'")
+    else:
+        # Parser "ll=ls -la" ou "ll='ls -la'"
+        arg = " ".join(args)
+        if "=" not in arg:
+            # Afficher un alias précis
+            if arg in ALIASES:
+                print(f"alias {arg}='{ALIASES[arg]}'")
+            else:
+                print(f"alias: {arg}: alias introuvable")
+            return
+        nom, _, valeur = arg.partition("=")
+        nom = nom.strip()
+        valeur = valeur.strip().strip("'\"")
+        ALIASES[nom] = valeur
+        sauvegarder_aliases(ALIASES)
+        print(f"Alias '{nom}' créé → '{valeur}'")
+
+def unalias(args):
+    if len(args) == 0:
+        print("unalias: usage: unalias <nom>")
+        return
+    nom = args[0]
+    if nom in ALIASES:
+        del ALIASES[nom]
+        sauvegarder_aliases(ALIASES)
+        print(f"Alias '{nom}' supprimé.")
+    else:
+        print(f"unalias: {nom}: alias introuvable")
+
+
 BUILTINS={
     "cd" : cd,
     "pwd" : pwd,
