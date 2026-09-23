@@ -7,6 +7,7 @@ def execute_commande(commandes) :
 
     if len(commandes)>1 :
         precedente = None
+        procs=[]
         for i,cmd in enumerate(commandes) :
             if i == 0 :
                 p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
@@ -14,8 +15,16 @@ def execute_commande(commandes) :
                 p = subprocess.Popen(cmd, stdin=precedente.stdout)
             else :
                 p = subprocess.Popen(cmd, stdin=precedente.stdout, stdout=subprocess.PIPE)
-            precedente = p 
-        p.wait()  
+                
+            if precedente is not None:
+                precedente.stdout.close()   # le parent n'a plus besoin de lire la sortie du processus précédent
+
+            # On ajoute le processus à la liste des processus pour pouvoir attendre leur fin plus tard
+            procs.append(p)
+            precedente = p # On met à jour le processus précédent pour le prochain tour de boucle
+
+        for proc in procs:
+            proc.wait()
     else :
         commandes = commandes[0]
         cmd=commandes[0]
